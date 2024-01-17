@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Button, Text, StyleSheet, ScrollView } from 'react-native';
 
 export default function App() {
 
@@ -34,11 +34,16 @@ export default function App() {
       </View>
 
       <View style = {styles.goalsContainer}>
-        {myGoals.map(goal => {
-          return (
-            <Text>{goal}</Text> //añade las metas
-          )
-        })}
+        <ScrollView> 
+          {myGoals.map((goal, i) => {
+            return (
+              <View style = {styles.goalItem} key={i}>
+                {/*Comentario: añadimos las metas*/}
+                <Text style = {styles.goalText}>{goal}</Text>  
+              </View>
+            )
+          })}
+        </ScrollView>
       </View>
       
     </View>
@@ -53,6 +58,7 @@ const styles = StyleSheet.create({
   },
 
   inputcontainer: {
+    flex: 1, //sin esto la línea y el borde de abajo del rectangulo se juntan
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -62,7 +68,6 @@ const styles = StyleSheet.create({
   },
 
   textinput: {
-    borderBottomColor: "#CCCCCC",
     borderWidth: 1, 
     width: "70%",
     padding: 10
@@ -70,6 +75,17 @@ const styles = StyleSheet.create({
 
   goalsContainer: {
     flex:5
+  },
+   
+  goalItem: {
+    padding: 20,
+    backgroundColor: "#092FE0",
+    marginBottom: 10, 
+    borderRadius: 12
+  },
+
+  goalText: {
+    color: "white"
   }
 
 });
