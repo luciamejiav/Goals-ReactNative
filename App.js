@@ -1,17 +1,44 @@
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
 
 export default function App() {
 
+  //declaramos el hook de estado de componente "newGoal"
+  const [newGoal, setNewGoal] = useState("");
+  const [myGoals, setMyGoals] = useState([]);
+
+  function textChangeHandler(enteredText){
+    setNewGoal(enteredText); //agregamos texto
+    console.log(newGoal);
+  }
+
+  function addGoalHandler(){
+    setMyGoals(myCurrentGoals => [...myCurrentGoals, newGoal]) //crea un nuevo array con las metas actuales y añade al final el newGoal, esto se llama destructuración
+    console.log(myGoals)
+  }
+
   return (
     <View style = {styles.container}>
+      
       <View style = {styles.inputcontainer}>
-        <TextInput styles = {styles.textinput} placeholder='Input your goals'/>
-        <Button title='Add Goal'/>
+        <TextInput 
+          onChangeText={textChangeHandler} 
+          style = {styles.textinput} 
+          placeholder='Input your goals'
+        />
+        <Button 
+          title='Add Goal'
+          onPress={addGoalHandler}  //manejador para añadir la meta
+        />
       </View>
 
       <View style = {styles.goalsContainer}>
-        <Text>Your list of goals...</Text>
+        {myGoals.map(goal => {
+          return (
+            <Text>{goal}</Text> //añade las metas
+          )
+        })}
       </View>
       
     </View>
@@ -22,7 +49,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 70,
-    paddingHorizontal: 16
+    paddingHorizontal: 15
   },
 
   inputcontainer: {
@@ -36,9 +63,9 @@ const styles = StyleSheet.create({
 
   textinput: {
     borderBottomColor: "#CCCCCC",
-    borderBottomWidth: 1, 
+    borderWidth: 1, 
     width: "70%",
-    padding: 8
+    padding: 10
   },
 
   goalsContainer: {
