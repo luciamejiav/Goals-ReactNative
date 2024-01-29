@@ -18,6 +18,12 @@ export default function App() {
     }]);
   }
 
+  function onDeleteGoalHandler(id){
+    setMyGoals((myCurrentGoals) => {
+      return (myCurrentGoals.filter((goal) => goal.id != id))
+    })
+  }
+
   return (
     <View style = {styles.container}>
       <GoalInput onNewGoal = {addGoalHandler}/> 
@@ -27,7 +33,11 @@ export default function App() {
         <FlatList
           data={myGoals}
           renderItem={(dataItem) => (
-            <GoalItem key={dataItem.item.id} goal = {dataItem.item} />
+            <GoalItem 
+              key={dataItem.item.id} 
+              goal = {dataItem.item} 
+              onDeleteGoal = {onDeleteGoalHandler}
+            />
           )}
         />
       </View>
