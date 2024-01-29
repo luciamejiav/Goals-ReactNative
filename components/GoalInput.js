@@ -1,8 +1,8 @@
 //rfc + tabulador
 import { useState } from 'react'
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Modal } from 'react-native';
 
-export default function GoalInput( {onNewGoal}) {
+export default function GoalInput( {onNewGoal, visible}) {
     //declaramos el hook de estado de componente "newGoal"
     const [newGoal, setNewGoal] = useState("");
 
@@ -18,18 +18,20 @@ export default function GoalInput( {onNewGoal}) {
     }
 
     return (
-        <View style = {styles.inputcontainer}>
-            <TextInput 
-                onChangeText={textChangeHandler} 
-                style = {styles.textInput} 
-                value={newGoal}
-                placeholder='Input your goals'
-            />
-            <Button 
-                title='Add Goal'
-                onPress={onPressHandler}  //manejador para añadir la meta
-            />
-        </View>
+        <Modal visible = {visible}> 
+            <View style = {styles.inputcontainer}>
+                <TextInput 
+                    onChangeText={textChangeHandler} 
+                    style = {styles.textInput} 
+                    value={newGoal}
+                    placeholder='Input your goals'
+                />
+                <Button 
+                    title='Add Goal'
+                    onPress={onPressHandler}  //manejador para añadir la meta
+                />
+            </View>
+        </Modal>
     )
 }
 
