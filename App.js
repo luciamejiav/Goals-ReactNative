@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View, TextInput, Button, Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 import GoalInput from './components/GoalInput';
+import GoalItem from './components/GoalItem';
 
 export default function App() {
 
@@ -26,10 +27,7 @@ export default function App() {
         <FlatList
           data={myGoals}
           renderItem={(dataItem) => (
-            <View style = {styles.goalItem} key={dataItem.item.id}>
-              {/*Comentario: añadimos las metas*/}
-              <Text style = {styles.goalText}>{dataItem.item.text}</Text>  
-            </View>
+            <GoalItem key={dataItem.item.id} goal = {dataItem.item} />
           )}
         />
       </View>
@@ -51,15 +49,6 @@ const styles = new StyleSheet.create({
   },
   goalsContainer: {
     flex: 5,
-  },
-  goalItem: {
-    padding: 20,
-    backgroundColor: "#092FE0",
-    marginBottom: 10,
-    borderRadius: 12,
-  },
-  goalText: {
-    color: "white"
   }
 
 });
